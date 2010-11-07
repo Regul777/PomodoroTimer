@@ -14,14 +14,14 @@
 -->
 
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id>samples.flex.HelloWorld</id>
+	<id>PomodoroTimer</id>
 
 	<!-- Used as the filename for the application. Required. -->
-	<filename>HelloWorld</filename>
+	<filename>PomodoroTimer</filename>
 
 	<!-- The name that is displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
-	<name>HelloWorld</name>
+	<name>Pomodoro Timer</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
 	<version>0.1</version>
@@ -39,7 +39,7 @@
 		<content>PomodoroTimer.swf</content>
 
 		<!-- The title of the main window. Optional. -->
-		 <title>HelloWorld</title>
+		 <title>Pomodoro Timer</title>
 
 		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
 		<!-- <systemChrome></systemChrome> -->
@@ -54,16 +54,16 @@
 		<!-- <minimizable></minimizable> -->
 
 		<!-- Whether the user can maximize the window. Optional. Default true. -->
-		<!-- <maximizable></maximizable> -->
+		<maximizable>false</maximizable>
 
 		<!-- Whether the user can resize the window. Optional. Default true. -->
-		<!-- <resizable></resizable> -->
+		<resizable>false</resizable>
 
 		<!-- The window's initial width. Optional. -->
-		 <width>400</width>
+		 <width>250</width>
 
 		<!-- The window's initial height. Optional. -->
-		 <height>300</height>
+		 <height>250</height>
 
 		<!-- The window's initial x position. Optional. -->
 		<!-- <x></x> -->

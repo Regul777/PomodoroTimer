@@ -5,6 +5,12 @@
     <source-path>
       <path-element>src</path-element>
     </source-path>
+    <library-path append="true">
+      <path-element>D:/SANTER/PROJECTS/XENAO/XenaoFramework/bin/XenaoFacebookLib.swc</path-element>
+      <path-element>D:/SANTER/PROJECTS/XENAO/XenaoFramework/bin/XenaoEffects.swc</path-element>
+      <path-element>D:/SANTER/PROJECTS/XENAO/XenaoFramework/bin/XenaoLib.swc</path-element>
+      <path-element>D:/SANTER/PROJECTS/XENAO/XenaoFramework/bin/XenaoUI.swc</path-element>
+    </library-path>
   </compiler>
   <file-specs>
     <path-element>src/PomodoroTimer.mxml</path-element>

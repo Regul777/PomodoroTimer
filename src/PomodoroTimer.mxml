@@ -1,7 +1,133 @@
 <?xml version="1.0"?>
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml">
-    <mx:Script><![CDATA[
-        import mx.controls.Alert;
-        ]]></mx:Script>
-    <mx:Button click="Alert.show('Hello, world')" label="Say Hello"/>
+<mx:WindowedApplication
+		xmlns:mx="http://www.adobe.com/2006/mxml"
+		addedToStage="init();"
+		alwaysInFront="true"
+		showStatusBar="false"
+>
+    <mx:Script>
+		<![CDATA[
+		import com.xenao.lib.utils.DataConverters;
+
+		private static const WORK_STATE:String = "workState";
+		private static const REST_STATE:String = "restState";
+
+		private var _currentState:String;
+
+		private var _updateTimer:Timer;
+
+		private var _workDuration:uint = DataConverters.fromMinutes(25);
+		private var _restDuration:uint = DataConverters.fromMinutes(5);
+		private var _currentDuration:uint;
+
+		private var _startTimestamp:uint;
+		private var _durationTimestamp:uint;
+		private var _isRunning:Boolean = false;
+
+        private function init():void {
+			_updateTimer = new Timer(200);
+			_updateTimer.addEventListener(TimerEvent.TIMER, handleUpdateTimer);
+
+			switchState(WORK_STATE);
+		}
+
+		private function switchState(state:String):void {
+			if (state == WORK_STATE) {
+				_currentDuration = _workDuration;
+				messageLabel.text = "Work!";
+				timerLabel.text = DataConverters.toTime(_currentDuration, false);
+
+			} else if (state == REST_STATE) {
+				_currentDuration = _restDuration;
+				messageLabel.text = "Rest!";
+				timerLabel.text = DataConverters.toTime(_currentDuration, false);
+			}
+
+			_currentState = state;
+		}
+
+		private function nextState():void {
+			if (_currentState == WORK_STATE) {
+				switchState(REST_STATE);
+				
+			} else if (_currentState == REST_STATE) {
+				switchState(WORK_STATE);
+			}
+		}
+
+		private function handleUpdateTimer(event:TimerEvent):void {
+			updateTimer();
+		}
+
+		private function updateTimer():void {
+			var currentTimestamp:uint = getTimer();
+			var deltaTimestamp:uint = _durationTimestamp + currentTimestamp - _startTimestamp;
+			var leftTimestamp:int = _currentDuration - deltaTimestamp;
+
+			if (leftTimestamp <= 0) {
+				leftTimestamp = 0;
+			}
+
+			timerLabel.text = DataConverters.toTime(leftTimestamp, false);
+
+			if (leftTimestamp <= 0) {
+				completeTimer();
+			}
+		}
+
+		private function completeTimer():void {
+			_updateTimer.stop();
+			_isRunning = false;
+			
+			_durationTimestamp = 0;
+
+			updateControlButton();
+
+			nextState();
+
+			restore();
+		}
+
+		private function startTimer():void {
+			_isRunning = true;
+
+			_startTimestamp = getTimer();
+
+			_updateTimer.start();
+		}
+
+		private function stopTimer():void {
+			_isRunning = false;
+
+			var currentTimestamp:uint = getTimer();
+			_durationTimestamp = currentTimestamp - _startTimestamp;
+			
+			_updateTimer.stop();
+		}
+
+		private function clickControlButton():void {
+			if (_isRunning) {
+				stopTimer();
+			} else {
+				startTimer();
+			}
+
+			updateControlButton();
+		}
+
+		private function updateControlButton():void {
+			controlButton.label = _isRunning ? "Stop" : "Start";
+		}
+
+        ]]>
+	</mx:Script>
+
+	<mx:Box paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10">
+		<mx:VBox horizontalAlign="center">
+			<mx:Label id="timerLabel" fontSize="30" text=""/>
+			<mx:Button id="controlButton" label="Start" click="clickControlButton();"/>
+			<mx:Label id="messageLabel" text=""/>
+		</mx:VBox>
+	</mx:Box>
+
 </mx:WindowedApplication>

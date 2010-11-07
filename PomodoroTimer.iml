@@ -13,6 +13,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Flex4SDK AIR" jdkType="AIR SDK Type" />
+    <orderEntry type="library" name="XenaoFramework" level="application" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
